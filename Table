@@ -1,1 +1,67 @@
+Create Database
+
+CREATE DATABASE pharma_track;
+USE pharma_track;
+
+
+CREATE TABLE manufacturer (
+    manufacturer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    contact VARCHAR(50),
+    address VARCHAR(255)
+);
+
+
+
+CREATE TABLE drug (
+    drug_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    category VARCHAR(50),
+    manufacturer_id INT,
+    price DECIMAL(10,2),
+    FOREIGN KEY (manufacturer_id) REFERENCES manufacturer(manufacturer_id)
+);
+
+
+CREATE TABLE batch (
+    batch_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT,
+    batch_number VARCHAR(100) UNIQUE,
+    manufacture_date DATE,
+    expiry_date DATE,
+    qr_code VARCHAR(255),
+    FOREIGN KEY (drug_id) REFERENCES drug(drug_id)
+);
+
+
+
+CREATE TABLE inventory (
+    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT,
+    quantity INT,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES drug(drug_id)
+);
+
+
+
+CREATE TABLE customer (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    phone VARCHAR(20),
+    address VARCHAR(255)
+);
+
+
+CREATE TABLE sales (
+    sale_id INT AUTO_INCREMENT PRIMARY KEY,
+    drug_id INT,
+    customer_id INT,
+    quantity INT,
+    total_price DECIMAL(10,2),
+    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (drug_id) REFERENCES drug(drug_id),
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
 
