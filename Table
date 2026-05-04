@@ -111,3 +111,18 @@ UPDATE drug SET price = 3.00 WHERE drug_id = 1;
 Update Customer Info
 UPDATE customer SET phone = '01999999999' WHERE customer_id = 1;
 
+
+
+
+Delete Drug
+DELETE FROM drug WHERE drug_id = 1;
+
+ Delete Customer
+DELETE FROM customer WHERE customer_id = 1;
+
+ Admin View Query
+SELECT * FROM drug;
+SELECT * FROM customer;  explain koro 
+SELECT * FROM sales;
+
+
