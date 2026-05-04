@@ -65,3 +65,27 @@ CREATE TABLE sales (
 );
 
 
+
+Manufacturer
+INSERT INTO manufacturer (name, contact, address)
+VALUES ('Square Pharma', '01711111111', 'Dhaka');
+
+Drug
+INSERT INTO drug (name, category, manufacturer_id, price)
+VALUES ('Napa', 'Painkiller', 1, 2.50);
+
+Batch
+INSERT INTO batch (drug_id, batch_number, manufacture_date, expiry_date, qr_code)
+VALUES (1, 'BATCH001', '2025-01-01', '2027-01-01', 'QR123456');
+
+Inventory
+INSERT INTO inventory (drug_id, quantity)
+VALUES (1, 1000);
+
+Customer
+INSERT INTO customer (name, phone, address)
+VALUES ('Rahim', '01812345678', 'Dhaka');
+
+Sales
+INSERT INTO sales (drug_id, customer_id, quantity, total_price)
+VALUES (1, 1, 5, 12.50);
