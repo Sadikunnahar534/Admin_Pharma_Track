@@ -1,0 +1,8 @@
+Update Stock
+UPDATE inventory SET quantity = 900 WHERE drug_id = 1;
+
+Update Price
+UPDATE drug SET price = 3.00 WHERE drug_id = 1;
+
+Update Customer Info
+UPDATE customer SET phone = '01999999999' WHERE customer_id = 1;
