@@ -102,3 +102,12 @@ SELECT d.name, c.name AS customer, s.quantity, s.total_price
 FROM sales s
 JOIN drug d ON s.drug_id = d.drug_id
 JOIN customer c ON s.customer_id = c.customer_id;
+Update Stock
+UPDATE inventory SET quantity = 900 WHERE drug_id = 1;
+
+Update Price
+UPDATE drug SET price = 3.00 WHERE drug_id = 1;
+
+Update Customer Info
+UPDATE customer SET phone = '01999999999' WHERE customer_id = 1;
+
