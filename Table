@@ -89,3 +89,16 @@ VALUES ('Rahim', '01812345678', 'Dhaka');
 Sales
 INSERT INTO sales (drug_id, customer_id, quantity, total_price)
 VALUES (1, 1, 5, 12.50);
+
+
+
+Search Drug
+SELECT * FROM drug WHERE name LIKE '%Napa%';
+ Search Customer
+SELECT * FROM customer WHERE name LIKE '%Rahim%';
+
+Sales Report
+SELECT d.name, c.name AS customer, s.quantity, s.total_price
+FROM sales s
+JOIN drug d ON s.drug_id = d.drug_id
+JOIN customer c ON s.customer_id = c.customer_id;
