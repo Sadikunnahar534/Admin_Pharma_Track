@@ -122,3 +122,42 @@ VALUES
 (1, 10, 15, 2.00, 30.00),
 (2, 3, 10, 15.00, 150.00),
 (2, 6, 20, 3.00, 60.00);
+
+
+
+-- Additional Medicines
+INSERT INTO medicines
+(name, generic_name, category_id, manufacturer,
+unit, purchase_price, selling_price,
+stock_quantity, min_stock_level,
+expiry_date, batch_number)
+
+VALUES
+('A-Zinc', 'Zinc Sulfate', 4,
+'ACI Limited', 'pcs',
+2.00, 4.00, 400, 40,
+'2027-01-31', 'ACI2024001'),
+
+('Vitamin C 500mg', 'Ascorbic Acid', 4,
+'Drug International', 'pcs',
+1.00, 2.00, 600, 60,
+'2027-06-30', 'DI2024001');
+
+-- Testing Queries
+SELECT * FROM categories;
+
+SELECT * FROM medicines;
+
+SELECT * FROM sales;
+
+SELECT * FROM sale_items;
+
+-- Low Stock Medicines
+SELECT name, stock_quantity
+FROM medicines
+WHERE stock_quantity < min_stock_level;
+
+-- Expired Medicines
+SELECT name, expiry_date
+FROM medicines
+WHERE expiry_date < CURDATE();
