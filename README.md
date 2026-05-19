@@ -183,4 +183,19 @@ ER diagram
 Schema diagram
 <img width="1105" height="713" alt="700852361_978233214854223_8361580445880616787_n" src="https://github.com/user-attachments/assets/fd0ec659-7d43-413c-9005-781348ff74ec" />
 
+Conclusion
+PharmaTrack addresses critical gaps in Bangladesh's pharmaceutical supply chain
+by combining robust database design, real-time tracking, and AI-powered analytics.
+The system ensures that every drug reaching a patient is authentic, properly stored,
+and not expired. Key innovations include: Unique QR code for each drug unit
 
+enabling complete traceability Cold chain monitoring ensuring temperature-
+sensitive drug integrity AI-based forecasting optimizing inventory and reducing
+
+waste Digital prescription system preventing fraud and misuse Comprehensive
+analytics empowering stakeholders with actionable insights This project
+demonstrates mastery of advanced database concepts including complex
+relationships, time-series data management, spatial queries, blockchain-inspired
+verification, and integration with AI/ML models. It is designed to be scalable,
+secure, and practical for real-world implementation in Bangladesh's growing
+pharmaceutical sector.
