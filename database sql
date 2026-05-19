@@ -77,7 +77,35 @@ VALUES
 
 
 
+-- Sales Table
+CREATE TABLE IF NOT EXISTS sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    invoice_number VARCHAR(50) UNIQUE NOT NULL,
+    customer_name VARCHAR(150),
+    customer_phone VARCHAR(20),
+    total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    discount DECIMAL(10,2) DEFAULT 0,
+    paid_amount DECIMAL(10,2) DEFAULT 0,
+    payment_method ENUM('cash','card','mobile')
+    DEFAULT 'cash',
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
+-- Insert Sample Sales
+INSERT INTO sales
+(invoice_number, customer_name, customer_phone,
+total_amount, discount, paid_amount, payment_method)
+
+VALUES
+('INV-001', 'Rahim Uddin', '01712345678',
+150.00, 0, 150.00, 'cash'),
+
+('INV-002', 'Karim Hossain', '01812345678',
+320.00, 20.00, 300.00, 'mobile'),
+
+('INV-003', 'Fatema Begum', '01912345678',
+85.00, 0, 85.00, 'cash');
 
 
 
