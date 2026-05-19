@@ -1,0 +1,87 @@
+<?php
+require_once '../includes/functions.php';
+requireLogin();
+require_once '../includes/db.php';
+$conn = getConnection();
+$pageTitle = 'Expiry Tracker';
+$activePage = 'expiry';
+
+$filter = $_GET['filter']??'all';
+$where = "m.status='active' AND m.expiry_date IS NOT NULL";
+if ($filter==='expired') $where .= " AND m.expiry_date < CURDATE()";
+elseif ($filter==='30days') $where .= " AND m.expiry_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
+elseif ($filter==='90days') $where .= " AND m.expiry_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 90 DAY)";
+
+$medicines = $conn->query("SELECT m.*, c.name as cat_name, DATEDIFF(m.expiry_date, CURDATE()) as days_left FROM medicines m LEFT JOIN categories c ON m.category_id=c.id WHERE $where AND m.stock_quantity>0 ORDER BY m.expiry_date ASC");
+
+$counts = $conn->query("SELECT
+  SUM(expiry_date < CURDATE()) as expired,
+  SUM(expiry_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)) as d30,
+  SUM(expiry_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 90 DAY)) as d90
+  FROM medicines WHERE status='active' AND expiry_date IS NOT NULL AND stock_quantity>0")->fetch_assoc();
+
+include '../includes/header.php';
+?>
+<div class="page-header">
+  <div><h1>⚠️ Expiry Tracker</h1><p>Monitor medicines nearing expiry</p></div>
+</div>
+
+<div class="stat-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:24px;">
+  <div class="stat-card red">
+    <div class="stat-label">Expired</div>
+    <div class="stat-value red"><?= (int)$counts['expired'] ?></div>
+    <div class="stat-sub">Past expiry date</div>
+  </div>
+  <div class="stat-card red">
+    <div class="stat-label">Expiring ≤30 Days</div>
+    <div class="stat-value red"><?= (int)$counts['d30'] ?></div>
+    <div class="stat-sub">Critical — Act now</div>
+  </div>
+  <div class="stat-card yellow">
+    <div class="stat-label">Expiring ≤90 Days</div>
+    <div class="stat-value yellow"><?= (int)$counts['d90'] ?></div>
+    <div class="stat-sub">Monitor closely</div>
+  </div>
+</div>
+
+<div style="display:flex;gap:10px;margin-bottom:20px;">
+  <?php $filters = ['all'=>'All','expired'=>'Expired','30days'=>'≤30 Days','90days'=>'≤90 Days']; ?>
+  <?php foreach($filters as $k=>$v): ?>
+    <a href="?filter=<?= $k ?>" class="btn <?= $filter===$k?'btn-primary':'btn-outline' ?>"><?= $v ?></a>
+  <?php endforeach; ?>
+</div>
+
+<div class="card">
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Medicine</th><th>Category</th><th>Batch</th><th>Stock</th><th>Expiry Date</th><th>Days Left</th><th>Status</th></tr></thead>
+    <tbody>
+    <?php while($row=$medicines->fetch_assoc()):
+      $days = (int)$row['days_left'];
+      $isExp = $days < 0;
+      $cls = $isExp ? 'badge-danger' : ($days<=30?'badge-danger':'badge-warning');
+      $label = $isExp ? 'EXPIRED' : ($days==0?'TODAY!':"$days days");
+    ?>
+      <tr>
+        <td><strong><?= htmlspecialchars($row['name']) ?></strong><br><span style="color:var(--muted);font-size:12px;"><?= htmlspecialchars($row['generic_name']??'') ?></span></td>
+        <td><?= htmlspecialchars($row['cat_name']??'—') ?></td>
+        <td style="font-family:'Space Mono',monospace;font-size:12px;color:var(--accent2);"><?= htmlspecialchars($row['batch_number']??'—') ?></td>
+        <td style="font-family:'Space Mono',monospace;"><?= number_format($row['stock_quantity']) ?></td>
+        <td style="font-family:'Space Mono',monospace;font-size:13px;<?= $isExp?'color:var(--danger)':'' ?>"><?= $row['expiry_date'] ?></td>
+        <td><span class="badge <?= $cls ?>"><?= $label ?></span></td>
+        <td>
+          <?php if($isExp): ?>
+            <span class="badge badge-danger">⛔ Remove from shelf</span>
+          <?php elseif($days<=30): ?>
+            <span class="badge badge-danger">🔴 Urgent</span>
+          <?php else: ?>
+            <span class="badge badge-warning">🟡 Watch</span>
+          <?php endif; ?>
+        </td>
+      </tr>
+    <?php endwhile; ?>
+    </tbody>
+  </table>
+  </div>
+</div>
+<?php include '../includes/footer.php'; $conn->close(); ?>
