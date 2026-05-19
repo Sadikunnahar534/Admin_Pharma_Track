@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-/* ====== ALL YOUR CSS SAME (NO CHANGE) ====== */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -34,7 +34,7 @@ body {
   overflow: hidden;
 }
 
-/* (সব CSS তুমি যেমন ছিল তেমনই রাখো — এখানে shorten করা হলো) */
+
 </style>
 
 </head>
@@ -45,7 +45,7 @@ body {
 
 <div class="login-container">
   <div class="logo-area">
-    <div class="logo-icon">💊</div>
+    <div class="logo-icon"></div>
     <div class="logo-text">Pharma<span>Track</span></div>
     <div class="logo-sub">Pharmacy Management System</div>
   </div>
@@ -55,7 +55,7 @@ body {
     <p>Sign in to access your pharmacy dashboard</p>
 
     <?php if (!empty($error)): ?>
-      <div class="error-msg">⚠️ <?= htmlspecialchars($error) ?></div>
+      <div class="error-msg"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
     <form method="POST" action="joy.php">
