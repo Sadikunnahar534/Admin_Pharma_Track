@@ -178,3 +178,4 @@ out-of-stock situations
 
 
 
+<img width="941" height="662" alt="702537215_2716794692018973_2369789970788326341_n" src="https://github.com/user-attachments/assets/00d0771d-2b76-4049-8eea-dcf888091d64" />
