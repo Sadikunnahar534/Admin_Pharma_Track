@@ -27,6 +27,66 @@ INSERT INTO categories (name, description) VALUES
 
 
 
+-- Medicines Table
+CREATE TABLE IF NOT EXISTS medicines (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    generic_name VARCHAR(200),
+    category_id INT,
+    manufacturer VARCHAR(150),
+    unit VARCHAR(50) DEFAULT 'pcs',
+    purchase_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+    selling_price DECIMAL(10,2) NOT NULL DEFAULT 0,
+    stock_quantity INT NOT NULL DEFAULT 0,
+    min_stock_level INT DEFAULT 10,
+    expiry_date DATE,
+    batch_number VARCHAR(100),
+    description TEXT,
+    status ENUM('active','inactive') DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (category_id)
+    REFERENCES categories(id)
+    ON DELETE SET NULL
+);
+
+-- Insert Sample Medicines
+INSERT INTO medicines
+(name, generic_name, category_id, manufacturer, unit,
+purchase_price, selling_price, stock_quantity,
+min_stock_level, expiry_date, batch_number)
+
+VALUES
+('Napa 500mg', 'Paracetamol', 2, 'Beximco Pharma',
+'pcs', 0.50, 1.00, 500, 50, '2026-12-31', 'BX2024001'),
+
+('Napa Extra', 'Paracetamol + Caffeine', 2,
+'Beximco Pharma', 'pcs', 0.80, 1.50, 300, 30,
+'2026-06-30', 'BX2024002'),
+
+('Amoxil 500mg', 'Amoxicillin', 1,
+'GlaxoSmithKline', 'pcs', 8.00, 15.00,
+200, 20, '2025-09-30', 'GSK2024001'),
+
+('Seclo 20mg', 'Omeprazole', 3,
+'Square Pharma', 'pcs', 3.50, 7.00,
+150, 15, '2026-03-31', 'SQ2024001');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
