@@ -1,0 +1,22 @@
+CREATE DATABASE IF NOT EXISTS pharmatrack
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
+
+USE pharmatrack;
+
+
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+INSERT INTO categories (name, description) VALUES
+('Antibiotics', 'Medicines that kill or inhibit bacteria'),
+('Analgesics', 'Pain relief medicines'),
+('Antacids', 'Medicines for acidity and heartburn'),
+('Vitamins & Supplements', 'Vitamins, minerals and supplements'),
+('Antidiabetics', 'Medicines for diabetes management'),
+('Antihistamines', 'Allergy relief medicines'),
+('Cardiovascular', 'Heart and blood pressure medicines'),
+('Dermatology', 'Skin care medicines and creams');
