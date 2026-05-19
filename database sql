@@ -20,3 +20,105 @@ INSERT INTO categories (name, description) VALUES
 ('Antihistamines', 'Allergy relief medicines'),
 ('Cardiovascular', 'Heart and blood pressure medicines'),
 ('Dermatology', 'Skin care medicines and creams');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS sale_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sale_id INT NOT NULL,
+    medicine_id INT NOT NULL,
+    quantity INT NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY (sale_id)
+    REFERENCES sales(id)
+    ON DELETE CASCADE,
+
+    FOREIGN KEY (medicine_id)
+    REFERENCES medicines(id)
+    ON DELETE RESTRICT
+);
+
+
+CREATE TABLE IF NOT EXISTS stock_adjustments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    medicine_id INT NOT NULL,
+    adjustment_type ENUM
+    ('purchase','return','damage','correction')
+    NOT NULL,
+
+    quantity INT NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (medicine_id)
+    REFERENCES medicines(id)
+    ON DELETE CASCADE
+);
+
+
+INSERT INTO sale_items
+(sale_id, medicine_id, quantity,
+unit_price, total_price)
+
+VALUES
+(1, 1, 50, 1.00, 50.00),
+(1, 4, 10, 7.00, 70.00),
+(1, 10, 15, 2.00, 30.00),
+(2, 3, 10, 15.00, 150.00),
+(2, 6, 20, 3.00, 60.00);
