@@ -1,4 +1,4 @@
-<img width="1105" height="713" alt="700852361_978233214854223_8361580445880616787_n" src="https://github.com/user-attachments/assets/37bd6b46-d607-4702-afe5-bbfbcd971db0" /># Admin_Pharma_Track
+ Admin_Pharma_Track
 new
 Executive Summary:
 Current pharmacy management systems face several challenges—expired drug
@@ -176,6 +176,11 @@ Customer Trust Transparent drug history for every purchase Regulatory Compliance
 Automated reporting for drug administration Stockout Prevention 40% reduction in
 out-of-stock situations
 
-
+ER diagram
 
 <img width="941" height="662" alt="702537215_2716794692018973_2369789970788326341_n" src="https://github.com/user-attachments/assets/00d0771d-2b76-4049-8eea-dcf888091d64" />
+
+Schema diagram
+<img width="1105" height="713" alt="700852361_978233214854223_8361580445880616787_n" src="https://github.com/user-attachments/assets/fd0ec659-7d43-413c-9005-781348ff74ec" />
+
+
